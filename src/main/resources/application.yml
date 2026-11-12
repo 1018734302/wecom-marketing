@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: wecom-marketing
+  datasource:
+    url: jdbc:mysql://localhost:3306/wecom_marketing?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 5000
+
+# 企微自建应用配置
+# 提示：secret 与 aes-key 不要提交到仓库，用环境变量注入
+wecom:
+  enabled: true
+  corp-id: ${WECOM_CORP_ID:}
+  agent-id: ${WECOM_AGENT_ID:}
+  secret: ${WECOM_SECRET:}
+  token: ${WECOM_TOKEN:}
+  aes-key: ${WECOM_AES_KEY:}
+  base-url: https://qyapi.weixin.qq.com
+  # 添加好友后的欢迎语（20 秒窗口，超时不可补发）
+  welcome-text: "你好，很高兴认识你！有任何问题随时找我。"
+  # 新客户自动打的标签名（企微企业标签）
+  auto-tag: "新客户"
+
+logging:
+  level:
+    com.entwc.marketing: DEBUG
